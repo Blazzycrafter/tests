@@ -3,9 +3,6 @@
 # windeploy starten
 Start-Process -FilePath ".\oobe\windeploy" -Wait
 
-# Warten bis Sysprep-Prozess beendet ist
-Wait-Process -Name "windeploy" -ErrorAction SilentlyContinue
-
 # Snapshot aller aktuell existierenden User in eine Variable
 $userSnapshot = Get-LocalUser | Select-Object -ExpandProperty Name
 
@@ -27,3 +24,10 @@ Write-Output "Neuer Prozess gestartet: $newProcess"
 if ($newProcess) {
     Wait-Process -Name $newProcess -ErrorAction SilentlyContinue
 }
+
+
+
+
+
+
+Read-Host
