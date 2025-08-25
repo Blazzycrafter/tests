@@ -2,6 +2,10 @@
 
 $dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/main/setup.ps1"
 
+
+
+
+mkdir C:\setup
 Invoke-WebRequest -Uri $dlp -OutFile "C:\setup\setup.ps1"
 
 # Sysprep starten
