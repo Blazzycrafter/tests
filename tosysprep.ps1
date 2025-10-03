@@ -1,11 +1,11 @@
 # hier ist tosysprep.ps1
 
-$dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/main/setup.ps1"
+$dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/master/setup.ps1"
 
 
 
-
-mkdir C:\setup
+# Sicherstellen, dass das Setup-Verzeichnis existiert
+New-Item -ItemType Directory -Path 'C:\setup' -Force | Out-Null
 Invoke-WebRequest -Uri $dlp -OutFile "C:\setup\setup.ps1"
 
 # Sysprep starten
