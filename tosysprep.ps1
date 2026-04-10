@@ -1,6 +1,6 @@
 # hier ist tosysprep.ps1
 
-$dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/main/setup.ps1"
+$dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/master/setup.ps1"
 
 
 
