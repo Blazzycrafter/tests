@@ -2,22 +2,27 @@
 
 $dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/master/setup.ps1"
 
+# Setup-Verzeichnis sicher erstellen
+# Safely create setup directory
+if (-not (test-path -Path "C:\setup")) {
+    new-item -Path "C:\setup" -ItemType Directory -Force
+}
 
+# Das setup.ps1 Skript herunterladen
+# Download setup.ps1 script
+invoke-webrequest -Uri $dlp -OutFile "C:\setup\setup.ps1"
 
+# Sysprep mit absolutem Pfad starten und auf Beendigung warten
+# Start Sysprep with absolute path and wait for completion
+start-process -FilePath "$env:SystemRoot\System32\sysprep\sysprep.exe" -ArgumentList "/generalize /oobe /quit" -Wait
 
-mkdir C:\setup
-Invoke-WebRequest -Uri $dlp -OutFile "C:\setup\setup.ps1"
-
-# Sysprep starten
-Start-Process -FilePath ".\sysprep\sysprep.exe" -ArgumentList "/generalize /oobe /quit" -Wait
-
-# Warten bis Sysprep-Prozess beendet ist
-Wait-Process -Name "sysprep" -ErrorAction SilentlyContinue
-
-# Den Registry-Wert ändern
+# Den Registry-Wert fuer das Setup-Skript und den SetupType anpassen
+# Adjust registry values for setup script and SetupType
 $regPath = "HKLM:\SYSTEM\Setup"
 $psScript = 'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\setup\setup.ps1"'
-Set-ItemProperty -Path $regPath -Name CmdLine -Value $psScript
+set-itemproperty -Path $regPath -Name CmdLine -Value $psScript -Type String
+set-itemproperty -Path $regPath -Name SetupType -Value 2 -Type DWord
 
-
-Restart-Computer
+# Computer neu starten
+# Restart the computer
+restart-computer
