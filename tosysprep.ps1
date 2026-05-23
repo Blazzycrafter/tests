@@ -14,7 +14,10 @@ invoke-webrequest -Uri $dlp -OutFile "C:\setup\setup.ps1"
 
 # Sysprep mit absolutem Pfad starten und auf Beendigung warten
 # Start Sysprep with absolute path and wait for completion
-start-process -FilePath "$env:SystemRoot\System32\sysprep\sysprep.exe" -ArgumentList "/generalize /oobe /quit" -Wait
+$sysprepProcess = start-process -FilePath "$env:SystemRoot\System32\sysprep\sysprep.exe" -ArgumentList "/generalize /oobe /quit" -Wait -PassThru
+if ($sysprepProcess.ExitCode -ne 0) {
+    throw "sysprep.exe failed with exit code $($sysprepProcess.ExitCode)"
+}
 
 # Den Registry-Wert fuer das Setup-Skript und den SetupType anpassen
 # Adjust registry values for setup script and SetupType
