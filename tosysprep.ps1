@@ -1,6 +1,6 @@
 # hier ist tosysprep.ps1
 
-$dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/master/setup.ps1"
+$dlp = "https://raw.githubusercontent.com/Blazzycrafter/tests/refs/heads/oobe-bypass/setup.ps11"
 
 # Setup-Verzeichnis sicher erstellen
 # Safely create setup directory
